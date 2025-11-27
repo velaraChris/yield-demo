@@ -181,8 +181,8 @@
             }, [allYields]);
 
             const chains = ['All', 'Ethereum', 'Base', 'Avalanche', 'zkSync', 'Multi-chain'];
-            const types = ['All', 'Lending', 'LP', 'RWA', 'Delta Neutral', 'Staked', 'Fixed Yield', 'Incentivized', 'Risk-Managed'];
-            const stablecoins = ['All', 'USDC', 'USDT', 'DAI', 'USDe', 'GYD'];
+            const types = ['All', 'Lending', 'LP', 'Savings', 'RWA', 'Delta Neutral', 'Staked', 'Fixed Yield', 'Incentivized', 'Risk-Managed'];
+            const stablecoins = ['All', 'USDC', 'USDT', 'USDS', 'DAI', 'USDe', 'GYD'];
 
             const formatTVL = (tvl) => {
                 if (tvl >= 1e9) return `$${(tvl / 1e9).toFixed(2)}B`;
