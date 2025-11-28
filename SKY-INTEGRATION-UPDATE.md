@@ -11,7 +11,7 @@ We've successfully added **Sky Protocol** (formerly MakerDAO) to the Stablecoin 
 ### Products Added
 
 #### 1. Sky Savings Rate (sUSDS)
-- **APY:** 4.75%
+- **APY:** 4.5%
 - **TVL:** $4+ billion
 - **Stablecoin:** USDS
 - **Type:** Non-custodial Savings
@@ -25,7 +25,7 @@ We've successfully added **Sky Protocol** (formerly MakerDAO) to the Stablecoin 
 - ✅ Can be used as collateral in other DeFi protocols
 
 #### 2. Sky DAI Savings Rate (sDAI)
-- **APY:** 1.25%
+- **APY:** 2.25%
 - **TVL:** $350 million
 - **Stablecoin:** DAI
 - **Type:** Savings
@@ -121,7 +121,7 @@ We've successfully added **Sky Protocol** (formerly MakerDAO) to the Stablecoin 
 
 ### Diversification
 - Access to one of DeFi's largest and most established protocols
-- Conservative yield option (4.75% sUSDS)
+- Conservative yield option (4.5% sUSDS)
 - Non-custodial safety
 
 ### Higher TVL Visibility
@@ -159,7 +159,7 @@ Before deploying, verify:
 
 - [ ] Dashboard displays Sky Savings Rate (sUSDS) card
 - [ ] Dashboard displays Sky DSR (sDAI) card
-- [ ] Both show correct APY (4.75% and 1.25%)
+- [ ] Both show correct APY (4.5% and 2.25%)
 - [ ] Both show correct TVL ($4B and $350M)
 - [ ] Sky badge color displays correctly (sky-blue)
 - [ ] Multi-chain filter shows Sky products
@@ -178,7 +178,7 @@ The Stablecoin Yield Aggregator now provides:
 - ✨ 10 major protocols
 - ✨ 42+ yield opportunities  
 - ✨ $7.2B+ total TVL tracked
-- ✨ Complete coverage from conservative (1.25% DAI) to aggressive (23.5% yUSD) yields
+- ✨ Complete coverage from conservative (2.25% DAI) to aggressive (23.5% yUSD) yields
 - ✨ Multi-chain support across 6+ networks
 
 **Next Deployment:**

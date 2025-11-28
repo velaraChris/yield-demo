@@ -193,7 +193,7 @@ Check if the server is running.
 - **API:** Public REST API
 
 ### Sky Protocol (Manual)
-- **Products:** sUSDS (4.75%), sDAI (1.25%)
+- **Products:** sUSDS (4.5%), sDAI (2.25%)
 - **Type:** Non-custodial savings (formerly MakerDAO)
 - **TVL:** $4+ billion
 - **Features:** No lockup, auto-compounding, multi-chain support

@@ -66,7 +66,14 @@
     <script type="text/babel">
         const { useState, useEffect, useMemo } = React;
 
-        // Mock data representing yields from various platforms
+        // API Configuration
+        // For local development: 'http://localhost:3000/api/yields'
+        // For production: '/api/yields' (relative path)
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000/api/yields'
+            : '/api/yields';
+
+        // Mock data representing yields from various platforms (fallback only)
         const mockYieldData = {
             defillama: [
                 { protocol: "Aave V3", stablecoin: "USDC", chain: "Ethereum", apy: 6.14, tvl: 586030000, type: "Lending" },
@@ -77,8 +84,8 @@
                 { protocol: "Curve", stablecoin: "USDT/USDC", chain: "Ethereum", apy: 3.5, tvl: 890000000, type: "LP" },
             ],
             sky: [
-                { protocol: "Sky Savings Rate (sUSDS)", stablecoin: "USDS", chain: "Multi-chain", apy: 4.75, tvl: 4000000000, type: "Savings", description: "Non-custodial USDS savings (formerly MakerDAO)" },
-                { protocol: "Sky DSR (sDAI)", stablecoin: "DAI", chain: "Ethereum", apy: 1.25, tvl: 350000000, type: "Savings", description: "DAI Savings Rate" },
+                { protocol: "Sky Savings Rate (sUSDS)", stablecoin: "USDS", chain: "Multi-chain", apy: 4.5, tvl: 4000000000, type: "Savings", description: "Non-custodial USDS savings (formerly MakerDAO)" },
+                { protocol: "Sky DSR (sDAI)", stablecoin: "DAI", chain: "Ethereum", apy: 2.25, tvl: 350000000, type: "Savings", description: "DAI Savings Rate" },
             ],
             midas: [
                 { protocol: "Midas mTBILL", stablecoin: "USDC", chain: "Ethereum", apy: 5.25, tvl: 45000000, type: "RWA", description: "Treasury-backed yield" },
@@ -126,22 +133,55 @@
             const [sortBy, setSortBy] = useState('apy');
             const [searchTerm, setSearchTerm] = useState('');
             const [loading, setLoading] = useState(true);
+            const [yieldData, setYieldData] = useState([]);
+            const [error, setError] = useState(null);
 
+            // Fetch real data from API
             useEffect(() => {
-                // Simulate loading
-                setTimeout(() => setLoading(false), 1500);
+                async function fetchData() {
+                    try {
+                        setLoading(true);
+                        
+                        // Fetch from API endpoint
+                        console.log('Fetching yields from:', API_URL);
+                        const response = await fetch(API_URL);
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log('API Response:', data);
+                            setYieldData(data.data || data.yields || []);
+                            console.log(`Loaded ${(data.data || data.yields || []).length} yield opportunities`);
+                        } else {
+                            // Fallback to mock data if API fails
+                            console.log('API returned error status, using mock data');
+                            useMockData();
+                        }
+                    } catch (err) {
+                        console.log('Fetch error, using mock data:', err.message);
+                        useMockData();
+                    } finally {
+                        setLoading(false);
+                    }
+                }
+
+                function useMockData() {
+                    const yields = [];
+                    Object.entries(mockYieldData).forEach(([source, opportunities]) => {
+                        opportunities.forEach(opp => {
+                            yields.push({ ...opp, source });
+                        });
+                    });
+                    setYieldData(yields);
+                    console.log(`Using mock data: ${yields.length} opportunities`);
+                }
+
+                fetchData();
             }, []);
 
-            // Flatten all yield opportunities
+            // All yields (from API or mock)
             const allYields = useMemo(() => {
-                const yields = [];
-                Object.entries(mockYieldData).forEach(([source, opportunities]) => {
-                    opportunities.forEach(opp => {
-                        yields.push({ ...opp, source });
-                    });
-                });
-                return yields;
-            }, []);
+                return yieldData;
+            }, [yieldData]);
 
             // Filter and sort yields
             const filteredYields = useMemo(() => {
@@ -193,6 +233,8 @@
             const getProtocolColor = (source) => {
                 const colors = {
                     sky: 'bg-sky-100 text-sky-800',
+                    morpho: 'bg-blue-100 text-blue-800',
+                    euler: 'bg-indigo-100 text-indigo-800',
                     defillama: 'bg-blue-100 text-blue-800',
                     midas: 'bg-yellow-100 text-yellow-800',
                     avant: 'bg-purple-100 text-purple-800',
